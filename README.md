@@ -8,6 +8,7 @@
     - [Installation](#installation)
     - [Deployment](#deployment)
     - [UML Data Model](#uml-data-model)
+    - [WireFrames](#-WireFrames)
     - [Approach to Testing](#approach-to-testing)
     - [Authors](#authors)
     - [Collaborations](#collaborations)
@@ -31,7 +32,17 @@ Please visit this link to view the [Software Requirements](./requirements.md)
 ## Deployment
 
 ## UML Data Model
-![UML](./assets/uml.png)
+![UML](./assets/UML.png)
+
+## WireFrames
+
+### Mobile view
+![MobileView1](./assets/mobile1.png)
+![MobileView2](./assets/mobile2.png)
+
+### Browser view
+![BrowserView1](./assets/browser1.png)
+![BrowserView2](./assets/browser2.png)
 
 
 ## Approach to Testing
