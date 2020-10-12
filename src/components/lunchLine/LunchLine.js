@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-
+import Form from './recipeForm';
 import { getRecipes } from '../../store/lunchLine.js';
 
 const LunchLine = ({ getRecipes, recipes }) => {
@@ -10,6 +10,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
 
     return (
         <div>
+            <Form/>
             <h2>My lunch line</h2>
             {console.log(recipes, 'console log recipes')}
             <ul>{recipes.map((recipe => {
