@@ -9,30 +9,40 @@ directions array of strings
 let initialState = {
   recipes: [
     { recipeName: 'Apple Pie', thumbnailUrl: '', prepTime: 40, ingredients: ['apple', 'pie crust', 'whipped cream'], directions: ['bake pie']},
+    { recipeName: 'Corn Bread', thumbnailUrl: '', prepTime: 35, ingredients: ['corn', 'flour', 'eggs'], directions: ['bake in the oven']},
   ],
-  activePost: [],
+  displayRecipes: [],
 };
 
 export default (state = initialState, action) => {
-  let { type, payload } = action;
-  
+  let {type, payload} = action;
   switch(type) {
-  case 'ADD_POST':
+  // Add recipe post from the form
+  // case 'ADD_POST':
 
-    return{ ...state, activePost: payload};
+  //   return{ ...state, displayRecipes:payload};
 
-    case 'GET_POSTS':
-      return
-  }
+  // get recipes we have stored
+  case 'GET_POSTS':
+    return { ...state, recipes: payload };
+  
 
   default:
     return state;
   }
 };
 
-export const addRecipe = (active) => {
-  return {
-    type: 'ADD_POST',
-    payload: active,
+// export const addRecipe = (recipe) => {
+//   return {
+//     type: 'ADD_POST',
+//     payload: recipe,
+//   };
+// };
+
+export const getRecipes = (recipe) => {
+  return{
+    type: 'GET_POSTS',
+    payload: recipe,
+
   };
 };
