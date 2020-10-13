@@ -1,8 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import picture from '../../../assets/transparentBgLogo.png';
+import HomeIcon from '@material-ui/icons/Home';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 function Header() {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      color: theme.palette.warning.main,
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
     <header>
       <img
@@ -14,11 +28,11 @@ function Header() {
       />
       <h1>What's cookin</h1>
       <br />
-      <Link to='/'>Home </Link>
-      <br />
-      <Link to='/profile/'>My profile </Link>
-      <br />
-      <Link to='/search/'>Search</Link>
+      <Link to='/'><HomeIcon backgroundColor="orange[500]"/></Link>
+      
+      <Link to='/profile/'><AccountCircleIcon/></Link>
+  
+      <Link to='/search/'><SearchIcon/></Link>
     </header>
   )
 }

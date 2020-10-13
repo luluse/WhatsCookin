@@ -11,31 +11,22 @@ let initialState = {
     { recipeName: 'Apple Pie', thumbnailUrl: '', prepTime: 40, ingredients: ['apple', 'pie crust', 'whipped cream'], directions: ['bake pie']},
     { recipeName: 'Corn Bread', thumbnailUrl: '', prepTime: 35, ingredients: ['corn', 'flour', 'eggs'], directions: ['bake in the oven']},
   ],
-  displayRecipes: [
-    { recipeName: '', thumbnailUrl: '', prepTime: 0, ingredients: [], directions: []}],
-  activeItem: {},
 };
+
 
 export default (state = initialState, action) => {
   let {type, payload} = action;
-  
+  console.log('recipeArray', state.recipes);
 
   switch(type) {
   
 
   // Add recipe post from the form
   case 'ADD_POST':
-    // return{ ...state, recipes: [...state.recipes, payload]};
-    return{ ...state, recipes: [...state.recipes, state.activeItem]};
-
-
-  case 'UPDATE_ACTIVE_ITEM':
-    return {...state, activeItem: payload};
-
-  case 'UPDATE_NAME': {
     
-    return {...state, recipes:  [...state.recipes, state.activeItem]};
-  }
+    // return{ ...state, recipes: [...state.recipes, payload]};
+    return{ ...state, recipes: [...state.recipes, payload]};
+
 
   // get recipes we have stored
   case 'GET_POSTS':
@@ -47,7 +38,9 @@ export default (state = initialState, action) => {
   }
 };
 
+
 export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
+  
   return {
     type: 'ADD_POST',
     payload: {
@@ -56,21 +49,6 @@ export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
       ingredients,
       directions,
     },
-  };
-};
-
-export const updateActiveItem = (payload) => {
-  return{
-    type: 'UPDATE_ACTIVE_ITEM',
-    payload,
-  };
-};
-
-
-export const updateRecipeName = (activeName) => {
-  return{
-    type: 'UPDATE_NAME',
-    payload: activeName,
   };
 };
 
