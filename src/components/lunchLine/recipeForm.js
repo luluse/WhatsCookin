@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { addRecipe } from '../../store/lunchLine.js';
+import { addRecipe, getRecipes } from '../../store/lunchLine.js';
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,25 +16,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeForm ({ addRecipe }) {
+function RecipeForm ({ addRecipe, getRecipe }) {
   
   const [name, setName] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
   const [prepTime, setPrepTime] = useState(0);
   const [ingredients, setIngredients]= useState([]);
   const [directions, setDirections] = useState([]);
 
   const classes = useStyles();
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    const recipe = {
+      name,
+      thumbnail,
+      prepTime,
+      ingredients,
+      directions
+    }
+    axios.post('http://localhost:3009/recipe', {recipe})
+    .then(res => {
+      getRecipes();
+      console.log(res, ' axios response');
+    })
+
+  };
 //  console.log('recipe', ([name, prepTime, ingredients, directions]));
   return (
     <div>
       <h2>Add a recipe!</h2> 
-      <form className={classes.root} noValidate autoComplete="off" onSubmit={e => {
-        e.preventDefault();
-        addRecipe(name, prepTime, ingredients, directions);
-      }}>
+      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
         <input type='text' name='recipeName' placeholder='Recipe name' value={name} 
         onChange={(event) => setName(event.target.value)}></input>
+        <br/>
+        <input type='text' name='thumbnail' placeholder='Image URL' value={thumbnail} 
+        onChange={(event) => setThumbnail(event.target.value)}></input>
         <br/>
         <input type='number' name='prepTime' value={prepTime} placeholder='Prep time' onChange={(event) => setPrepTime(event.target.value)} ></input>
         <br/>
@@ -55,5 +73,5 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = { addRecipe }
+const mapDispatchToProps = { addRecipe, getRecipes }
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);

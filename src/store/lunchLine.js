@@ -53,23 +53,20 @@ export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
   };
 };
 
-// export const getRecipes = (recipe) => {
-//   return{
-//     type: 'GET_POSTS',
-//     payload: recipe,
+export function getRecipes() {
 
-//   };
-// };
-export const getRecipes = () => async (dispatch) => {
+  return async function (dispatch) {
 
-  const response = await axios.get('http://localhost:3009/api/recipe');
+    const response = await axios.get('http://localhost:3009/api/recipe');
 
-  console.log('response data', response.data.results);
+    console.log('response data', response.data);
 
-  dispatch({
-    type: 'GET_POSTS',
-    payload: response.data.results,
-  });
+    dispatch({
+      type: 'GET_POSTS',
+      payload: response.data,
+    });
+
+  };
 
 };
 

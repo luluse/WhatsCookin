@@ -66,9 +66,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
 
 
     useEffect(() => {
-        getRecipes()
-        console.log('whats happening here?');
-        
+        getRecipes()        
     }, [getRecipes])
 
     return (
@@ -81,7 +79,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
                 <div>
                     {recipes.map((recipe) => {
                         return (
-                            <Card>
+                            <Card key={recipe.id}>
                                 
                                 <CardHeader
                                     avatar={
@@ -100,6 +98,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
                                 <CardMedia
                                     className={classes.media}
                                     image={`https://source.unsplash.com/random?${recipe.recipeName}`}
+                                    // image={recipe.thumbnail}
                                     title={recipe.recipeName}
                                 />
                                
