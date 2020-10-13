@@ -32,17 +32,17 @@ Please visit this link to view the [Software Requirements](./requirements.md)
 ## Deployment
 
 ## UML Data Model
-![UML](./assets/UML.png)
+![UML](./src/assets/UML.png)
 
 ## WireFrames
 
 ### Mobile view
-![MobileView1](./assets/mobile1.png)
-![MobileView2](./assets/mobile2.png)
+![MobileView1](./src/assets/mobile1.png)
+![MobileView2](./src/assets/mobile2.png)
 
 ### Browser view
-![BrowserView1](./assets/browser1.png)
-![BrowserView2](./assets/browser2.png)
+![BrowserView1](./src/assets/browser1.png)
+![BrowserView2](./src/assets/browser2.png)
 
 
 ## Approach to Testing

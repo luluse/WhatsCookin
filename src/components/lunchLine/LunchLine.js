@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import Form from './recipeForm';
+import { getRecipes } from '../../store/lunchLine.js';
 
-import { addRecipe } from '../../store/lunchLine.js';
-
-const LunchLine = (props) => {
-    let recipeMap = props.recipes;
+const LunchLine = ({ getRecipes, recipes }) => {
+    // let recipeMap = props.recipes;
 
     const [post, setPost] = useState(0);
 
     return (
         <div>
+            <Form/>
             <h2>My lunch line</h2>
-            <ul>{recipeMap.map((recipe => {
+            {console.log(recipes, 'console log recipes')}
+            <ul>{recipes.map((recipe => {
                 return(
                     <li>{recipe.recipeName}</li>
                 )
-            }))}
-            </ul>
+            }))} 
+             </ul>
         </div>
     );
 }
@@ -24,9 +26,11 @@ const LunchLine = (props) => {
 
 const mapStateToProps = state => {
     return{
-        recipe: state.recipes,
+        recipes: state.lunchLineReducer.recipes,
+    
+        
     }
 }
 
-const mapDispatchToProps = { addRecipe }
+const mapDispatchToProps = { getRecipes }
 export default connect(mapStateToProps, mapDispatchToProps)(LunchLine);
