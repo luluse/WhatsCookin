@@ -19,7 +19,6 @@ let initialState = {
 
 export default (state = initialState, action) => {
     let { type, payload } = action;
-    console.log('recipeArray', state.recipes);
 
     switch (type) {
 
@@ -60,8 +59,6 @@ export function getRecipes() {
     return async function (dispatch) {
 
         const response = await axios.get(API.BASE + API.RECIPE);
-
-        console.log('response data', response.data);
 
         dispatch({
             type: 'GET_POSTS',
