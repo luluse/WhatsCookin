@@ -24,7 +24,7 @@ function RecipeForm ({ addRecipe }) {
 
   const classes = useStyles();
 
- console.log('recipe', ([name, prepTime, ingredients, directions]));
+//  console.log('recipe', ([name, prepTime, ingredients, directions]));
   return (
     <div>
       <h2>Add a recipe!</h2> 

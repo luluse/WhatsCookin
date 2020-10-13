@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "./recipeForm";
 import { getRecipes } from "../../store/lunchLine.js";
@@ -63,6 +63,13 @@ const LunchLine = ({ getRecipes, recipes }) => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+
+    useEffect(() => {
+        getRecipes()
+        console.log('whats happening here?');
+        
+    }, [getRecipes])
 
     return (
         <div className={classes.root}>
