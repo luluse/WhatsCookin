@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-function Profile(){
+function Search(){
    return(
     <>
-       <h1>My profile</h1>
+       <h1>Search for a recipe</h1>
        <br/>
     </>   
    )
 }
 
-export default Profile;
+export default Search;

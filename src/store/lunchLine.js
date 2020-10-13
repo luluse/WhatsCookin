@@ -25,7 +25,8 @@ export default (state = initialState, action) => {
 
   // Add recipe post from the form
   case 'ADD_POST':
-    return{ ...state, recipes: [...state.recipes, payload]};
+    // return{ ...state, recipes: [...state.recipes, payload]};
+    return{ ...state, recipes: [...state.recipes, state.activeItem]};
 
 
   case 'UPDATE_ACTIVE_ITEM':

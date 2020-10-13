@@ -7,21 +7,22 @@ import { addRecipe, updateRecipeName, updateActiveItem } from '../../store/lunch
 
 
 
-function recipeForm ({ addRecipe, displayRecipes, recipes, updateRecipeName, updateActiveItem}) {
+function RecipeForm ({ addRecipe, displayRecipes, activeItem, updateRecipeName, updateActiveItem}) {
   const [post, setPost] = useState([{}]);
   
   console.log('display reicpes', displayRecipes)
-  console.log('recipe name', recipes.recipeName)
+  console.log('recipe name', activeItem)
   return (
     <div>
       <h2>Add a recipe!</h2> 
       <form onSubmit={e => {
         e.preventDefault();
-        addRecipe(recipes.recipeName);
+        // addRecipe(recipes.recipeName);
+        addRecipe();
         setPost('');
       }}>
         {/* {console.log('display reicpes', displayRecipes)}; */}
-        <input type='text' name='recipeName' value={recipes.recipeName} placeholder='Recipe name' onChange={(event) => updateActiveItem({ "recipeName": event.target.value })}></input>
+        <input type='text' name='recipeName' placeholder='Recipe name' onChange={(event) => updateActiveItem({ "recipeName": event.target.value })}></input>
         <br/>
         <input type='number' name='prepTime' value={displayRecipes.prepTime} placeholder='Prep time' onChange={(event) => updateActiveItem({ "prepTime": event.target.value })} ></input>
         <br/>
@@ -44,19 +45,9 @@ const mapStateToProps = state => {
   return{
     state,
     displayRecipes: state.lunchLineReducer.displayRecipes,
-    recipes: state.lunchLineReducer.recipes,
+    recipes: state.activeItem,
   }
 }
 
-const mapDispatchToProps = { addRecipe, updateRecipeName, updateActiveItem
-//   return{
-//   addRecipe(recipeName){
-//     if(recipeName){
-//       dispatch(addRecipe(recipeName))
-//       dispatch(updateRecipeName(''))
-//     }
-//   }, 
-//   updateRecipeName: recipeName => dispatch(updateRecipeName(recipeName)),
-//  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(recipeForm);
+const mapDispatchToProps = { addRecipe, updateRecipeName, updateActiveItem}
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);
