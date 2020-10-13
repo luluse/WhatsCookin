@@ -13,15 +13,28 @@ let initialState = {
   ],
   displayRecipes: [
     { recipeName: '', thumbnailUrl: '', prepTime: 0, ingredients: [], directions: []}],
+  activeItem: {},
 };
 
 export default (state = initialState, action) => {
   let {type, payload} = action;
+  
+
   switch(type) {
+  
+
   // Add recipe post from the form
   case 'ADD_POST':
+    return{ ...state, recipes: [...state.recipes, payload]};
+
+
+  case 'UPDATE_ACTIVE_ITEM':
+    return {...state, activeItem: payload};
+
+  case 'UPDATE_NAME': {
     
-    return{ ...state, displayRecipes:payload};
+    return {...state, recipes:  [...state.recipes, state.activeItem]};
+  }
 
   // get recipes we have stored
   case 'GET_POSTS':
@@ -33,10 +46,30 @@ export default (state = initialState, action) => {
   }
 };
 
-export const addRecipe = (displayRecipes) => {
+export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
   return {
     type: 'ADD_POST',
-    payload: displayRecipes,
+    payload: {
+      recipeName,
+      prepTime,
+      ingredients,
+      directions,
+    },
+  };
+};
+
+export const updateActiveItem = (payload) => {
+  return{
+    type: 'UPDATE_ACTIVE_ITEM',
+    payload,
+  };
+};
+
+
+export const updateRecipeName = (activeName) => {
+  return{
+    type: 'UPDATE_NAME',
+    payload: activeName,
   };
 };
 
