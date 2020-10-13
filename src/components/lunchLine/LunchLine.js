@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Form from "./recipeForm";
 import { getRecipes } from "../../store/lunchLine.js";
@@ -64,6 +64,11 @@ const LunchLine = ({ getRecipes, recipes }) => {
         setExpanded(!expanded);
     };
 
+
+    useEffect(() => {
+        getRecipes()        
+    }, [getRecipes])
+
     return (
         <div className={classes.root}>
             <Form />
@@ -74,7 +79,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
                 <div>
                     {recipes.map((recipe) => {
                         return (
-                            <Card>
+                            <Card key={recipe.id}>
                                 
                                 <CardHeader
                                     avatar={
@@ -93,6 +98,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
                                 <CardMedia
                                     className={classes.media}
                                     image={`https://source.unsplash.com/random?${recipe.recipeName}`}
+                                    // image={recipe.thumbnail}
                                     title={recipe.recipeName}
                                 />
                                
