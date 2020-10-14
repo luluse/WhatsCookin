@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Form from "./recipeForm";
 import { getRecipes } from "../../store/lunchLine.js";
 
+import '../../App.css';
+
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -18,6 +20,7 @@ import { orange } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Container from '@material-ui/core/Container';
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
 
@@ -70,6 +73,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
     }, [getRecipes])
 
     return (
+        <Container maxWidth="sm" className="container">
         <div className={classes.root}>
             <Form />
 
@@ -162,10 +166,11 @@ const LunchLine = ({ getRecipes, recipes }) => {
                             </Card>
                         );
                     })}
-               
+                   
                 </div>
                 
         </div>
+        </Container>
     );
 };
 
