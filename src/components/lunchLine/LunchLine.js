@@ -66,28 +66,27 @@ const LunchLine = ({ getRecipes, recipes }) => {
 
 
     useEffect(() => {
-        getRecipes()        
+        getRecipes()
     }, [getRecipes])
 
     return (
         <div className={classes.root}>
             <Form />
 
-                <h2>My lunch line</h2>
+            <h2>My lunch line</h2>
 
-                {console.log(recipes, "console log recipes")}
-                <div>
-                    {recipes.map((recipe) => {
-                        return (
-                            <Card key={recipe.id}>
-                                
-                                <CardHeader
-                                    avatar={
-                                        <Avatar
-                                            aria-label="recipe"
-                                            className={classes.avatar}
-                                        >
-                                            R
+            <div>
+                {recipes.map((recipe) => (
+
+                    <Card key={Math.random()}>
+
+                        <CardHeader
+                            avatar={
+                                <Avatar
+                                    aria-label="recipe"
+                                    className={classes.avatar}
+                                >
+                                    R
                                         </Avatar>
                                     }
                                     title={Object.values(recipe.recipeName)}
@@ -109,62 +108,62 @@ const LunchLine = ({ getRecipes, recipes }) => {
                                         {(recipe.prepTime)}{" "}
                                         minutes
                                     </Typography>
-                                </CardContent>
-                                <CardActions disableSpacing>
-                                    <IconButton aria-label="add to favorites">
-                                        <FavoriteIcon />
-                                    </IconButton>
-                                    <IconButton aria-label="share">
-                                        <ShareIcon />
-                                    </IconButton>
-                                    <IconButton
-                                        className={clsx(classes.expand, {
-                                            [classes.expandOpen]: expanded,
-                                        })}
-                                        onClick={handleExpandClick}
-                                        aria-expanded={expanded}
-                                        aria-label="show more"
-                                    >
-                                        <ExpandMoreIcon />
-                                    </IconButton>
-                                </CardActions>
-                                <Collapse
-                                    in={expanded}
-                                    timeout="auto"
-                                    unmountOnExit
+                        </CardContent>
+                        <CardActions disableSpacing>
+                            <IconButton aria-label="add to favorites">
+                                <FavoriteIcon />
+                            </IconButton>
+                            <IconButton aria-label="share">
+                                <ShareIcon />
+                            </IconButton>
+                            <IconButton
+                                className={clsx(classes.expand, {
+                                    [classes.expandOpen]: expanded,
+                                })}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        </CardActions>
+                        <Collapse
+                            in={expanded}
+                            timeout="auto"
+                            unmountOnExit
+                        >
+                            <CardContent>
+                                <Typography paragraph>
+                                    Ingredients:
+                                        </Typography>
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
                                 >
-                                    <CardContent>
-                                        <Typography paragraph>
-                                            Ingredients:
+                                    {` ${Object.values(
+                                        recipe.ingredients
+                                    )} `}
+                                </Typography>
+                                <Typography paragraph>
+                                    Directions:
                                         </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {` ${Object.values(
-                                                recipe.ingredients
-                                            )} `}
-                                        </Typography>
-                                        <Typography paragraph>
-                                            Directions:
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {`${recipe.directions} `}
-                                        </Typography>
-                                    </CardContent>
-                                </Collapse>
-        
-                            </Card>
-                        );
-                    })}
-               
-                </div>
-                
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
+                                >
+                                    {`${recipe.directions} `}
+                                </Typography>
+                            </CardContent>
+                        </Collapse>
+
+                    </Card>
+
+                ))}
+
+            </div>
+
         </div>
     );
 };
