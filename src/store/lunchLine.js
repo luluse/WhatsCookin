@@ -46,7 +46,7 @@ export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
     type: 'ADD_POST',
     payload: {
       recipeName,
-      prepTime,
+      prepTime: parseInt(prepTime),
       ingredients,
       directions,
     },
@@ -68,5 +68,5 @@ export function getRecipes() {
 
   };
 
-};
+}
 

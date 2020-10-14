@@ -106,7 +106,7 @@ const LunchLine = ({ getRecipes, recipes }) => {
                                 <CardContent>
                                     <Typography variant="subtitle1">
                                         Prep Time:{" "}
-                                        {JSON.stringify(recipe.prepTime)}{" "}
+                                        {(recipe.prepTime)}{" "}
                                         minutes
                                     </Typography>
                                 </CardContent>
