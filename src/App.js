@@ -3,7 +3,7 @@ import React from 'react';
 // import './App.css';
 import Header from './components/layouts/header/header';
 import LunchLine from './components/lunchLine/LunchLine';
-import Login from './components/auth/login.js';
+import Login from './components/auth/loginStub.js';
 import Profile from './components/profile/profile';
 import Search from './components/search/search';
 import Footer from './components/layouts/footer/footer';
