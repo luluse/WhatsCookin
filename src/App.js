@@ -19,6 +19,7 @@ function App() {
                     <Route path='/home' component={LunchLine} />
                     <Route path='/profile' component={Profile} />
                     <Route path='/search' component={Search} />
+                    <Route path='/login' component={Login} exact />
                     <Route />
                 </Switch>
             </main>

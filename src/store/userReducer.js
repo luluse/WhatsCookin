@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const initialState = {
   loggedIn: false,
-  user: {}
+  user: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -14,19 +14,26 @@ const userReducer = (state = initialState, action) => {
   case 'SET_USER':
     return {
       loggedIn: true,
-      user: payload
-    }
+      user: payload,
+    };
 
   case 'LOG_OUT':
     return {
       loggedIn: false,
-      user: {}
-    }
+      user: {},
+    };
 
-  default: return state
+  default: return state;
 
   }
 
+};
+
+export function logOut(){
+  return {
+    type: 'LOG_OUT',
+    payload: {},
+  };
 }
 
 export function login(userInfo) {
@@ -37,16 +44,16 @@ export function login(userInfo) {
 
     const returnedUser = {
       id: userInfo.userName === 'root' ? 1 : 2,
-    }
+    };
 
     console.log('using star wars until we integrate with back end');
 
     dispatch({
       type: 'SET_USER',
       payload: returnedUser,
-    })
+    });
 
-  }
+  };
 
 }
 
