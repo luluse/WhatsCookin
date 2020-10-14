@@ -17,7 +17,9 @@ function Main () {
     <App />
     </Provider>
    </BrowserRouter>
-   // </Auth> 
+
+  //  </Auth>
+
   )
 }
 
