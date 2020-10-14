@@ -45,12 +45,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeForm ({ addRecipe, getRecipe }) {
-  
+function RecipeForm({ addRecipe, getRecipe }) {
+
   const [name, setName] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [prepTime, setPrepTime] = useState(0);
-  const [ingredients, setIngredients]= useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [directions, setDirections] = useState([]);
 
   const classes = useStyles();
@@ -71,25 +71,25 @@ function RecipeForm ({ addRecipe, getRecipe }) {
       directions
     }
     axios.post('http://localhost:3009/api/recipe', recipe)
-    .then(res => {
-      // We want to refresh recipe list here
-      getRecipes();
-      console.log(res, ' axios response');
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .then(res => {
+        // We want to refresh recipe list here
+        getRecipes();
+        console.log(res, ' axios response');
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
   };
-//  console.log('recipe', ([name, prepTime, ingredients, directions]));
+  //  console.log('recipe', ([name, prepTime, ingredients, directions]));
 
 
   return (
-    <Card className={classes.root} style={{ backgroundColor: 'orange'}}>
-    
-   <CardActions disableSpacing>
-   <Typography title>Add a recipe</Typography>
-        <AddIcon fontSize="large" 
+    <Card className={classes.root} style={{ backgroundColor: 'orange' }}>
+
+      <CardActions disableSpacing>
+        <Typography title="true">Add a recipe</Typography>
+        <AddIcon fontSize="large"
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
@@ -103,26 +103,26 @@ function RecipeForm ({ addRecipe, getRecipe }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <TextField id="standard-basic" label="Recipe Name" type='text' name='recipeName' placeholder='Recipe name' value={name} 
-          onChange={(event) => setName(event.target.value)}/>
+            <TextField id="standard-basic" label="Recipe Name" type='text' name='recipeName' placeholder='Recipe name' value={name}
+              onChange={(event) => setName(event.target.value)} />
 
-          <TextField id="standard-basic" label="Prep Time in minutes" type="number" name='prepTime' value={prepTime} placeholder='Prep time' onChange={(event) => setPrepTime(event.target.value)} />
+            <TextField id="standard-basic" label="Prep Time in minutes" type="number" name='prepTime' value={prepTime} placeholder='Prep time' onChange={(event) => setPrepTime(event.target.value)} />
 
-          <TextField id="standard-textarea" label="Ingredients" placeholder="Ingredients" multiline type='text' name='ingredients' value={ingredients} onChange={(event) => setIngredients(event.target.value)} />
+            <TextField id="standard-textarea" label="Ingredients" placeholder="Ingredients" multiline type='text' name='ingredients' value={ingredients} onChange={(event) => setIngredients(event.target.value)} />
 
-          <TextField id="standard-textarea" label="Directions" placeholder="Directions" multiline type='textarea' name='directions' value={directions} onChange={(event) => setDirections(event.target.value)}/>
+            <TextField id="standard-textarea" label="Directions" placeholder="Directions" multiline type='textarea' name='directions' value={directions} onChange={(event) => setDirections(event.target.value)} />
 
-          <br/><br/>
+            <br /><br />
 
-          <Button variant="contained" type="submit">Post your Recipe</Button>
-       
+            <Button variant="contained" type="submit">Post your Recipe</Button>
+
 
 
           </form>
-          
+
         </CardContent>
-      </Collapse> 
-    
+      </Collapse>
+
     </Card>
     // <div>
     //   <h2>Add a recipe!</h2> 
@@ -143,10 +143,10 @@ function RecipeForm ({ addRecipe, getRecipe }) {
     //   </form>
     // </div>
   )
-} 
+}
 
 const mapStateToProps = state => {
-  return{
+  return {
     state,
     displayRecipes: state.lunchLineReducer.displayRecipes,
     recipes: state.activeItem,
