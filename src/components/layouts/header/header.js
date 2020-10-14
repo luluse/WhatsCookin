@@ -1,9 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import picture from '../../../assets/header.jpg';
-import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 

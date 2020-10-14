@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -70,7 +70,7 @@ function RecipeForm({ addRecipe, getRecipe }) {
       ingredients,
       directions
     }
-    axios.post('http://localhost:3009/api/recipe', recipe)
+    axios.post(API.BASE + API.RECIPE, recipe)
       .then(res => {
         // We want to refresh recipe list here
         getRecipes();

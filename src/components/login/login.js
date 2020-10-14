@@ -49,7 +49,7 @@ function Login({ loggedIn, login }) {
     }
 
     return (
-
+        <>
         <form className={classes.root} noValidate autoComplete="off" onSubmit={submitHandler}>
             <div>
                 <TextField required id="standard-basic" label="UserName" onChange={nameChangeHandler} />
@@ -61,13 +61,15 @@ function Login({ loggedIn, login }) {
         </Button>
             </div>
             <br />
+            </form>
             <div>
                 <Button variant="contained" style={{ backgroundColor: 'orange' }}>
                     signup
         </Button>
             </div>
+            </>
 
-        </form>
+        
 
         // <form onSubmit={submitHandler}>
         //     <input placeholder="enter name" onChange={nameChangeHandler} />

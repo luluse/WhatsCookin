@@ -40,7 +40,7 @@ export function login(userInfo) {
 
   return async function (dispatch) {
 
-    const response = await axios.get('https://swapi.dev/api/people/1/');
+    // const response = await axios.get('https://swapi.dev/api/people/1/');
 
     const returnedUser = {
       id: userInfo.userName === 'root' ? 1 : 2,

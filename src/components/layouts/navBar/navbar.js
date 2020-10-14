@@ -14,13 +14,7 @@ import '../../../App.css';
 
 function NavBar({ logOut }) {
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      color: theme.palette.warning.main,
-    },
-  }));
 
-  const classes = useStyles();
 
   return (
     <Container maxWidth="sm">
