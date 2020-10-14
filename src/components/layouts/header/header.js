@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import '../../../App.css';
 
 function Header() {
+
   const useStyles = makeStyles((theme) => ({
     root: {
       color: theme.palette.warning.main,
@@ -38,6 +39,7 @@ function Header() {
       <br />
     </Container>
   )
+
 }
 
 export default Header;
