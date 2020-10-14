@@ -13,20 +13,33 @@ export default (state = intialState, action) => {
 
     return{...state, results: payload};
 
+  
+  case 'UPDATE_RESULTS':
+
+    return{...state, results: payload};
+
   default:
     return state;
   }
 
 };
 
-export const getSearchResults = (results) => {
-  console.log('results', results);
-  // const response = await axios.get('http://localhost:3009/api/searchByIngredients');
 
-  // console.log('response data', response.data.results);  
+
+export const getSearchResults = (results) => {
+  console.log('RRRResults', results);
+  
+
   return {
     type: 'GET_RESULTS',
-    payload: results.data.results,
+    payload: results,
   };
 
 };
+
+// export const updateSearchResults = () => {
+//   return{
+//     type: 'UPDATE_RESULTS':
+//     payload: 
+//   }
+// }
