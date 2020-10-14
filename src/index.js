@@ -6,14 +6,18 @@ import { Provider } from 'react-redux';
 import store from './store/';
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
+import Auth from './components/auth/login.js';
+
 
 function Main () {
   return(
+  <Auth>
   <BrowserRouter>
   <Provider store={store}>
     <App />
     </Provider>
    </BrowserRouter>
+   </Auth>
   )
 }
 
