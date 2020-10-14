@@ -92,24 +92,24 @@ const LunchLine = ({ getRecipes, recipes }) => {
                                 >
                                     R
                                         </Avatar>
-                            }
-                            title={Object.values(recipe.recipeName)}
-                        />
-
-
-
-                        <CardMedia
-                            className={classes.media}
-                            image={`https://source.unsplash.com/random?${recipe.recipeName}`}
-                            // image={recipe.thumbnail}
-                            title={recipe.recipeName}
-                        />
-
-
-                        <CardContent>
-                            <Typography variant="subtitle1">
-                                Prep Time:{" "}
-                                {JSON.stringify(recipe.prepTime)}{" "}
+                                    }
+                                    title={Object.values(recipe.recipeName)}
+                                />
+                                
+                                
+                                
+                                <CardMedia
+                                    className={classes.media}
+                                    image={`https://source.unsplash.com/random?${recipe.recipeName}`}
+                                    // image={recipe.thumbnail}
+                                    title={recipe.recipeName}
+                                />
+                               
+                               
+                                <CardContent>
+                                    <Typography variant="subtitle1">
+                                        Prep Time:{" "}
+                                        {(recipe.prepTime)}{" "}
                                         minutes
                                     </Typography>
                         </CardContent>

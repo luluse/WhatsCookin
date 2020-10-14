@@ -43,15 +43,16 @@ export default (state = initialState, action) => {
 
 export const addRecipe = (recipeName, prepTime, ingredients, directions) => {
 
-    return {
-        type: 'ADD_POST',
-        payload: {
-            recipeName,
-            prepTime,
-            ingredients,
-            directions,
-        },
-    };
+  return {
+    type: 'ADD_POST',
+    payload: {
+      recipeName,
+      prepTime: parseInt(prepTime),
+      ingredients,
+      directions,
+    },
+  };
+
 };
 
 export function getRecipes() {
@@ -67,5 +68,5 @@ export function getRecipes() {
 
     };
 
-};
+}
 

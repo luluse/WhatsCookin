@@ -62,16 +62,21 @@ function RecipeForm ({ addRecipe, getRecipe }) {
   const handleSubmit = e => {
     e.preventDefault();
     const recipe = {
-      name,
+      Profile: 1,
+      recipeName: name,
       thumbnail,
-      prepTime,
+      prepTime: parseInt(prepTime),
       ingredients,
       directions
     }
-    axios.post('http://localhost:3009/recipe', {recipe})
+    axios.post('http://localhost:3009/api/recipe', recipe)
     .then(res => {
+      // We want to refresh recipe list here
       getRecipes();
       console.log(res, ' axios response');
+    })
+    .catch(error => {
+      console.log(error)
     })
 
   };

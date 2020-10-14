@@ -1,13 +1,11 @@
 import React from 'react';
+import Form from './searchForm.js';
 
 
 function Search(){
    return(
     <>
-    <form>
-       <h1>Search for a recipe</h1>
-       <input type="text" placeholder="search by ingredients or cuisine..."/>
-       </form>
+    <Form />
        {/* Cuisines as a dropdown */}
        <br/>
     </>   
