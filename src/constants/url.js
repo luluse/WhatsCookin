@@ -6,5 +6,6 @@ export default {
     RECIPEALL: 'getAllPersonalRecipe/',
     USER: 'user/',
     PROFILE: 'profile/',
+    COOKBOOK: 'addToCookbook/'
 
 }

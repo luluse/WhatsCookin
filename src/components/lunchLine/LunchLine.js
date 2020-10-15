@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Form from "./recipeForm";
 import NavBar from "../layouts/navBar/navbar"
 import { getRecipes } from "../../store/lunchLine.js";
-
+import API from '../../constants/url.js';
 import '../../App.css';
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,6 +22,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Container from '@material-ui/core/Container';
+import axios from "axios";
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
 
@@ -53,18 +54,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// function RecipeReviewCard( recipes ) {
-//     const classes = useStyles();
-//     const [expanded, setExpanded] = useState(false);
-
-//     const handleExpandClick = () => {
-//       setExpanded(!expanded);
-//     };
 const LunchLine = ({ getRecipes, recipes, currentUser }) => {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
-    const [cookbook, setCookbook] = useState(currentUser.profile.cookbook || [])
+    const [cookbook, setCookbook] = useState(JSON.parse(currentUser.profile.cookbook) || [])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -75,12 +69,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
         getRecipes()
     }, [getRecipes])
 
-    const likeHandler = (recipe) => {
-        console.log('heart clicked!', `recipeId: ${recipe.id}`, `UserId: ${currentUser.id}`)
-        console.log('profile', currentUser.profile);
-        console.log('recipe', recipe);
-
-        console.log('the cook book ===', cookbook);
+    const likeHandler = async (recipe) => {
 
         if (cookbook === null) {
             let newCookbook = []
@@ -94,14 +83,16 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
                 };
             }
 
-            cookbook.push(recipe);
+            let newBook = cookbook.push(recipe);
+            setCookbook(newBook);
+
+            let url = API.BASE + API.COOKBOOK + currentUser.profile.id
+
+            const response = await axios.put(url, { data: cookbook })
 
         }
 
-
     }
-
-
 
     return (
         <>
