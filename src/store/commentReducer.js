@@ -1,7 +1,7 @@
 const commentReducer = (state = [], action) =>{
   switch(action.type){
-    default: return state
+  default: return state;
   }
-}
+};
 
-export default commentReducer
+export default commentReducer;
