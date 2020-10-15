@@ -19,6 +19,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Container from "@material-ui/core/Container";
+// import Link from "@material-ui/core/Link";
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
 
@@ -119,7 +120,7 @@ function SearchForm({ results }) {
 
 
         setSearchResults(recipesWithDirections.data);
-        console.log("RRRResults");
+        console.log("RRRResults", searchResults)
     };
 
 
@@ -149,6 +150,7 @@ function SearchForm({ results }) {
                         </Avatar>
                     }
                     title={JSON.stringify(recipe.title)}
+                    
                 />
 
                 <CardMedia
@@ -159,9 +161,11 @@ function SearchForm({ results }) {
                 />
 
                 <CardContent>
-                    <Typography variant="subtitle1">
-                        Attribution: {recipe.sourceName}
-                    </Typography>
+            
+                        <a href={recipe.sourceUrl}>
+                        Source: {recipe.sourceName}</a>
+                        
+                    
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
@@ -169,7 +173,7 @@ function SearchForm({ results }) {
                     </IconButton>
                     <IconButton aria-label="share">
                         <ShareIcon />
-                    </IconButton>
+                    </IconButton>{console.log(recipe, 'this is the recipe for real')}
                     <IconButton
                         className={clsx(classes.expand, {
                             [classes.expandOpen]: expanded,
@@ -186,13 +190,14 @@ function SearchForm({ results }) {
                     <Typography variant="subtitle1">
                         Time: {recipe.readyInMinutes} minutes
                     </Typography>
-                    <Typography paragraph>Ingredients:</Typography>
+                    <Typography variant='h6'>Ingredients:</Typography>
                         {recipe.extendedIngredients.map((item) => (
                             <Typography key={Math.random()} paragraph>{item.original}</Typography>
                         ))}
 
                         <Typography variant='h6'>Directions:</Typography>
-                        {recipe.analyzedInstructions[0].steps.map((step) => (
+                        {recipe.analyzedInstructions.length === 0 ? 
+                        <Typography>{recipe.instructions}</Typography> : recipe.analyzedInstructions[0].steps.map((step) => ( console.log(step, 'this is a step in the recipe'),
                             <Typography key={Math.random()} paragraph>{JSON.stringify(step.number), ' ', step.step}</Typography>
                         ))}
                     </CardContent>
