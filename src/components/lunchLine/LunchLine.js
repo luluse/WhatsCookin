@@ -133,8 +133,8 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
 
                                 <CardMedia
                                     className={classes.media}
-                                    image={`https://source.unsplash.com/random?${recipe.recipeName}`}
-                                    // image={recipe.thumbnail}
+                                    // image={`https://source.unsplash.com/random?${recipe.recipeName}`}
+                                    image={recipe.thumbnail}
                                     title={recipe.recipeName}
                                 />
 
