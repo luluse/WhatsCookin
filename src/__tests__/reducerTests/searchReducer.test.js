@@ -8,17 +8,14 @@ describe('action creators', () => {
   });
 });
 
-// export const getSearchResults = (results) => {
-//   console.log('RRRResults', results);
-  
+describe('reducer', () => {
+  it('should get search results', () => {
+    const result = {
+      name: 'Resulty',
+    };
+    const action = {type:'GET_RESULTS', payload: result };
+    const newState = search(undefined, action);
+    expect(newState.results).toBe(result);
 
-//   return {
-//     type: 'GET_RESULTS',
-//     payload: results,
-//   };
-
-// };
-
-// case 'GET_RESULTS':
-
-//   return{...state, results: payload};
+  });
+});
