@@ -94,6 +94,7 @@ export function login(userInfo) {
         const allRecipes = await axios.get(API.BASE + API.RECIPEALL + returnedUser.id);
         const profile = await axios.get(API.BASE + API.PROFILE + id);
 
+
         returnedUser.creations = allRecipes.data
         returnedUser.profile = profile.data
 
@@ -104,6 +105,7 @@ export function login(userInfo) {
         } else {
             cookbook = JSON.parse(profile.data.cookbook)
         }
+
 
 
 

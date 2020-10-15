@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import Form from "./recipeForm";
 import NavBar from "../layouts/navBar/navbar"
 import { getRecipes } from "../../store/lunchLine.js";
+
 import { updateCookbook } from "../../store/userReducer.js";
+
 import API from '../../constants/url.js';
 import '../../App.css';
 
@@ -63,11 +65,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook }) => {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
     // const [cookbook, setCookbook] = useState(JSON.parse(currentUser.profile.cookbook) || [])
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -102,6 +106,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook 
         let url = API.BASE + API.COOKBOOK + currentUser.profile.id
 
         await axios.put(url, { data: cookbook })
+
 
 
     }
