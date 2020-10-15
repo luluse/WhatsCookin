@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { render } from '@testing-library/react';
 
-const API = 'http://localhost:3009/api';
+const API = 'https://intense-springs-83892.herokuapp.com/api/';
 
 export const LoginContext = React.createContext();
 class LoginProvider extends React.Component {
