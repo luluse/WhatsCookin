@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getSearchResults } from "../../store/search.js";
 import Typography from "@material-ui/core/Typography";
 
+import '../../App.css';
+
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -19,6 +21,9 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Container from "@material-ui/core/Container";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 // import Link from "@material-ui/core/Link";
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
@@ -36,7 +41,15 @@ Make a get request to recipe API using the id to retireve directions(instruction
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        [theme.breakpoints.down('sm')]:{
+        maxWidth: 345,    
+        },
+        [theme.breakpoints.down('md')]:{
+            maxWidth: 500,
+        },
+        [theme.breakpoints.down('lg')]:{
+            maxWidth: 700,
+        }, 
     },
     media: {
         height: 0,
@@ -67,17 +80,17 @@ const useStyles = makeStyles((theme) => ({
 
 const API = process.env.API_KEY;
 function SearchForm({ results }) {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const [expanded, setExpanded] = useState(false);
-  const [directions, setDirections] = useState('');
+    const [expanded, setExpanded] = useState(false);
+    const [directions, setDirections] = useState('');
 
 
 
-  let bestDirections = ''
+    let bestDirections = ''
     const handleExpandClick = (id) => {
         setExpanded(!expanded);
-      
+
     };
 
     const [searchResults, setSearchResults] = useState([]);
@@ -105,7 +118,7 @@ function SearchForm({ results }) {
         };
 
         let results = await axios.get(
-            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=db8c64af4c834b0187f178ac867a95d1&addRecipeInformation=true&instructionsRequired=true`
+            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=c71ca8318bad4e5d94a57f8a1115ea2c&addRecipeInformation=true&instructionsRequired=true`
         );
         // TODO: IS MAKE IT SO YOU CAN SEARCH BY CUISINE
         // Make the results saveable
@@ -114,8 +127,8 @@ function SearchForm({ results }) {
 
         let recipeIds = [];
         await results.data.map(recipe => recipeIds.push(recipe.id))
-         let ids = recipeIds.toString();
-        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=db8c64af4c834b0187f178ac867a95d1`)
+        let ids = recipeIds.toString();
+        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=c71ca8318bad4e5d94a57f8a1115ea2c`)
 
 
 
@@ -125,87 +138,94 @@ function SearchForm({ results }) {
 
 
     return (
-        <div>
-            <form>
-                <h1>Search for a recipe</h1>
-                <input
-                    type="text"
-                    placeholder="search by ingredients or cuisine..."
-                    onChange={handleSearchInputChange}
-                />
-                <button onClick={handleSearchSubmit} type="submit">
-                    Search For Recipes!
-                </button>
-            </form>
+        <Container maxWidth="sm" className="container">
+            <div className={classes.root}>
+                <Card className={classes.root} style={{ backgroundColor: 'orange' }}>
+                    <form>
+                        <h2>Search for a recipe</h2>
+                        <TextField id="standard-basic"
+                            type="text"
+                            placeholder="search by ingredients"
+                            onChange={handleSearchInputChange}
+                        />
+                        <br /><br />
+                        <Button variant="contained" onClick={handleSearchSubmit} type="submit">
+                            Go!
+                </Button>
 
-       <div>
-         
-         {searchResults.map((recipe) => (
-           
-            <Card key={Math.random()}>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
-                            R
+                    </form>
+                    <br />
+                </Card>
+
+                <div>
+
+                    {searchResults.map((recipe) => (
+
+                        <Card key={Math.random()}>
+                            <CardHeader
+                                avatar={
+                                    <Avatar aria-label="recipe" className={classes.avatar}>
+                                        R
                         </Avatar>
-                    }
-                    title={JSON.stringify(recipe.title)}
-                    
-                />
+                                }
+                                title={recipe.title}
 
-                <CardMedia
-                    className={classes.media}
-                    image={recipe.image}
-                    // image={recipe.thumbnail}
-                    title={recipe.recipeName}
-                />
+                            />
 
-                <CardContent>
-            
-                        <a href={recipe.sourceUrl}>
-                        Source: {recipe.sourceName}</a>
-                        
-                    
-                </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                        <ShareIcon />
-                    </IconButton>{console.log(recipe, 'this is the recipe for real')}
-                    <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ExpandMoreIcon />
-                    </IconButton>
-                </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                    <Typography variant="subtitle1">
-                        Time: {recipe.readyInMinutes} minutes
+                            <CardMedia
+                                className={classes.media}
+                                image={recipe.image}
+                                // image={recipe.thumbnail}
+                                title={recipe.recipeName}
+                            />
+
+                            <CardContent>
+
+                                <h3><a href={recipe.sourceUrl}>
+                                    Source: {recipe.sourceName}</a></h3>
+
+
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton aria-label="add to favorites">
+                                    <FavoriteIcon />
+                                </IconButton>
+                                <IconButton aria-label="share">
+                                    <ShareIcon />
+                                </IconButton>{console.log(recipe, 'this is the recipe for real')}
+                                <IconButton
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded,
+                                    })}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                >
+                                    <ExpandMoreIcon />
+                                </IconButton>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <Typography variant="subtitle1">
+                                        <h3>Time:</h3>{recipe.readyInMinutes} minutes
                     </Typography>
-                    <Typography variant='h6'>Ingredients:</Typography>
-                        {recipe.extendedIngredients.map((item) => (
-                            <Typography key={Math.random()} paragraph>{item.original}</Typography>
-                        ))}
+                                    <Typography variant='h6'><h3>Ingredients:</h3></Typography>
+                                    {recipe.extendedIngredients.map((item) => (
+                                        <Typography key={Math.random()} paragraph>{item.original}</Typography>
+                                    ))}
 
-                        <Typography variant='h6'>Directions:</Typography>
-                        {recipe.analyzedInstructions.length === 0 ? 
-                        <Typography>{recipe.instructions}</Typography> : recipe.analyzedInstructions[0].steps.map((step) => ( console.log(step, 'this is a step in the recipe'),
-                            <Typography key={Math.random()} paragraph>{JSON.stringify(step.number), ' ', step.step}</Typography>
-                        ))}
-                    </CardContent>
-                </Collapse>
-            </Card>
-            ))}
-        </div>
-      </div>
+                                    <Typography variant='h6'><h3>Directions:</h3></Typography>
+                                    {recipe.analyzedInstructions.length === 0 ?
+                                        <Typography>{recipe.instructions}</Typography> : recipe.analyzedInstructions[0].steps.map((step) => (console.log(step, 'this is a step in the recipe'),
+                                            <Typography key={Math.random()} paragraph>{JSON.stringify(step.number), ' ', step.step}</Typography>
+                                        ))}
+                                </CardContent>
+                            </Collapse>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </Container>
     );
 }
 
