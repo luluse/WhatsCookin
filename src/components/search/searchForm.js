@@ -24,14 +24,9 @@ import Container from "@material-ui/core/Container";
 
 
 /*
-
 Ingredients, picture, title, 
-
 When someone clicks expand
-
 Make a get request to recipe API using the id to retireve directions(instructions) and cook time
-
-
 */
 
 
@@ -81,14 +76,7 @@ function SearchForm({ results }) {
   let bestDirections = ''
     const handleExpandClick = (id) => {
         setExpanded(!expanded);
-       
-    //     async function getDirections(id){
-    //       console.log('inside of get directions==============================')
-    //       let results = await axios.get(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions&apiKey=291a3b6a2ab14c9cade36a65da1b549b`);
-    //       console.log('RECIPE DIRECTIONS', results);
-    //       bestDirections = results;
-    //     }
-    // getDirections()
+      
     };
 
     const [searchResults, setSearchResults] = useState([]);
@@ -116,41 +104,24 @@ function SearchForm({ results }) {
         };
 
         let results = await axios.get(
-            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=291a3b6a2ab14c9cade36a65da1b549b&addRecipeInformation=true&instructionsRequired=true`
+            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=db8c64af4c834b0187f178ac867a95d1&addRecipeInformation=true&instructionsRequired=true`
         );
+        // TODO: IS MAKE IT SO YOU CAN SEARCH BY CUISINE
+        // Make the results saveable
+        // PUT API KEY INTO DOTENV
+
+
         let recipeIds = [];
         await results.data.map(recipe => recipeIds.push(recipe.id))
-      
-console.log('this is recpieid', recipeIds.toString())
+         let ids = recipeIds.toString();
+        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=db8c64af4c834b0187f178ac867a95d1`)
 
 
-        setSearchResults(results.data);
-        console.log("RRRResults", results.data);
 
-
-        //     RRRResults
-        // Array(10)
-        // 0:
-        // id: 987595
-        // image: "https://spoonacular.com/recipeImages/987595-312x231.jpg"
-        // imageType: "jpg"
-        // likes: 17
-        // missedIngredientCount: 1
-        // missedIngredients: [{…}]
-        // title: "Apple Ginger Kombucha Cocktail"
-        // unusedIngredients: []
-        // usedIngredientCount: 2
-        // usedIngredients: (2) [{…}, {…}]
-        // __proto__: Object
+        setSearchResults(recipesWithDirections.data);
+        console.log("RRRResults");
     };
-    //   const handleRecipeDetails = async () => {
-    //     const id = {
-    //       id: results.id,
-    //     }
 
-    //     let results = await axios.get(`https://api.spoonacular.com/recipes/${id.id}/information&apiKey=291a3b6a2ab14c9cade36a65da1b549b&addRecipeInformation=true`);
-    //     setSearchResults(results.data);
-    // }
 
     return (
         <div>
@@ -165,18 +136,11 @@ console.log('this is recpieid', recipeIds.toString())
                     Search For Recipes!
                 </button>
             </form>
-            {/* <div>
-         {searchResults.map((recipe) => (
-           <ul>
-             {recipe.title}
-            <li >
-              
-            </li>
-           </ul>
-         ))}
-       </div> */}
+
        <div>
+         
          {searchResults.map((recipe) => (
+           
             <Card key={Math.random()}>
                 <CardHeader
                     avatar={
@@ -196,7 +160,7 @@ console.log('this is recpieid', recipeIds.toString())
 
                 <CardContent>
                     <Typography variant="subtitle1">
-                        Author: {recipe.author}
+                        Attribution: {recipe.sourceName}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -220,27 +184,17 @@ console.log('this is recpieid', recipeIds.toString())
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                     <Typography variant="subtitle1">
-                        Prep Time: {recipe.prepTime} minutes
+                        Time: {recipe.readyInMinutes} minutes
                     </Typography>
-                        <Typography paragraph>Ingredients:</Typography>
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                        >
-                            {` ${JSON.stringify(recipe.ingredients)} `}
-                        </Typography>
+                    <Typography paragraph>Ingredients:</Typography>
+                        {recipe.extendedIngredients.map((item) => (
+                            <Typography key={Math.random()} paragraph>{item.original}</Typography>
+                        ))}
 
-                        {/* WANT TO DISPLAY DIRECTIONS */}
-                        <Typography paragraph>Directions:{bestDirections}</Typography>
-
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                        >
-                            {`${recipe.directions} `}
-                        </Typography>
+                        <Typography variant='h6'>Directions:</Typography>
+                        {recipe.analyzedInstructions[0].steps.map((step) => (
+                            <Typography key={Math.random()} paragraph>{JSON.stringify(step.number), ' ', step.step}</Typography>
+                        ))}
                     </CardContent>
                 </Collapse>
             </Card>
