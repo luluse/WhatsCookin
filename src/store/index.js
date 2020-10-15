@@ -1,12 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import lunchLineReducer from './lunchLine';
 import searchReducer from './search';
-import commentReducer from './commentReducer';
-import userReducer from './userReducer';
+import userReducer from './userReducer.js';
 
 import thunk from 'redux-thunk';
 
-let reducers = combineReducers({ lunchLineReducer, searchReducer, commentReducer, userReducer });
+let reducers = combineReducers({ lunchLineReducer, searchReducer, userReducer });
 
 const store = () => {
   return createStore(reducers, (applyMiddleware(thunk)));
