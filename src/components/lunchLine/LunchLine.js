@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Form from "./recipeForm";
 import NavBar from "../layouts/navBar/navbar"
 import { getRecipes } from "../../store/lunchLine.js";
+
+import { updateCookbook } from "../../store/userReducer.js";
+
 import API from '../../constants/url.js';
 import '../../App.css';
 
@@ -62,11 +65,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LunchLine = ({ getRecipes, recipes, currentUser }) => {
+
+const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook }) => {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
-    const [cookbook, setCookbook] = useState(JSON.parse(currentUser.profile.cookbook) || [])
+    // const [cookbook, setCookbook] = useState(JSON.parse(currentUser.profile.cookbook) || [])
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -79,26 +84,30 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
 
     const likeHandler = async (recipe) => {
 
-        if (cookbook === null) {
-            let newCookbook = []
-            newCookbook.push(recipe);
+        //if recipe has been liked before we want to remove the liked recipe from array
+        let likeBeforeStatus = false;
+        let index;
 
-        } else {
-
-            for (let i = 0; i < cookbook.length; i++) {
-                if (cookbook[i].id === recipe.id) {
-                    return;
-                };
-            }
-
-            let newBook = cookbook.push(recipe);
-            setCookbook(newBook);
-
-            let url = API.BASE + API.COOKBOOK + currentUser.profile.id
-
-            const response = await axios.put(url, { data: cookbook })
-
+        for (let i = 0; i < cookbook.length; i++) {
+            if (cookbook[i].id === recipe.id) {
+                likeBeforeStatus = true;
+                index = i;
+            };
         }
+
+        if (likeBeforeStatus) {
+            cookbook.splice(index, 1);
+        } else {
+            cookbook.push(recipe);
+        }
+
+        updateCookbook(cookbook);
+
+        let url = API.BASE + API.COOKBOOK + currentUser.profile.id
+
+        await axios.put(url, { data: cookbook })
+
+
 
     }
 
@@ -217,8 +226,10 @@ const mapStateToProps = (state) => {
     return {
         recipes: state.lunchLineReducer.recipes,
         currentUser: state.userReducer.user,
+        cookbook: state.userReducer.cookbook
     };
 };
 
-const mapDispatchToProps = { getRecipes };
+const mapDispatchToProps = { getRecipes, updateCookbook };
+
 export default connect(mapStateToProps, mapDispatchToProps)(LunchLine);
