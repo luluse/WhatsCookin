@@ -28,7 +28,7 @@ function NavBar({ logOut }) {
       <Link to='/search/'><SearchIcon fontSize="large"/></Link>
 
       <Link to='/login'><ExitToAppIcon fontSize="large" onClick={logOut}/></Link>
-      <br />
+      <br /><br />
     </Container>
   )
 

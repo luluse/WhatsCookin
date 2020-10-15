@@ -27,7 +27,15 @@ import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        [theme.breakpoints.down('sm')]:{
+            maxWidth: 345,    
+            },
+            [theme.breakpoints.down('md')]:{
+                maxWidth: 500,
+            },
+            [theme.breakpoints.down('lg')]:{
+                maxWidth: 700,
+            }, 
     },
     media: {
         height: 0,
@@ -107,14 +115,12 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
                                     // image={recipe.thumbnail}
                                     title={recipe.recipeName}
                                 />
-
-
-                                <CardContent>
-                                    <Typography variant="subtitle1">
-                                        Prep Time:{" "}
-                                        {(recipe.prepTime)}{" "}
-                                        minutes
+                                <Typography variant="subtitle1">
+                                        <h3>Source:{" "}</h3>
+                                        {(recipe.author)}
                                     </Typography>
+                                <CardContent>
+                                 
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
@@ -139,9 +145,15 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
                                     timeout="auto"
                                     unmountOnExit
                                 >
-                                    <CardContent>
+                                 <CardContent>
+                                       <Typography variant="subtitle1">
+                                        <h3>Time:</h3>{" "}
+                                        {(recipe.prepTime)}{" "}
+                                        minutes
+                                    </Typography>
+                                   
                                         <Typography paragraph>
-                                            Ingredients:
+                                            <h3>Ingredients:</h3>
                                         </Typography>
                                         <Typography
                                             variant="body2"
@@ -154,7 +166,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
                                         )} `} */}
                                         </Typography>
                                         <Typography paragraph>
-                                            Directions:
+                                            <h3>Directions:</h3>
                                         </Typography>
 
                                         <Typography
