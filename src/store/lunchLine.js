@@ -34,6 +34,8 @@ export default (state = initialState, action) => {
   case 'GET_POSTS':
     return { ...state, recipes: payload };
 
+  case 'MY_CREATIONS':
+    return {...state, personalRecipes: payload};
 
   default:
     return state;
@@ -60,10 +62,16 @@ export function getRecipes() {
   return async function (dispatch) {
 
     const response = await axios.get(API.BASE + API.RECIPE);
+    const response2 = await axios.get(API.BASE + API.RECIPEALL + '1');
 
     dispatch({
       type: 'GET_POSTS',
       payload: response.data.reverse(),
+    });
+
+    dispatch({
+      type: 'MY_CREATIONS',
+      payload: response2.data,
     });
 
   };

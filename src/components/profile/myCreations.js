@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 
     return {
 
-        recipes: state.lunchLineReducer.recipes,
+        recipes: state.lunchLineReducer.personalRecipes,
 
     };
 
