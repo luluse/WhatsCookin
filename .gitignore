@@ -4,7 +4,7 @@ db
 temp
 build
 .idea
-
+.vscode
 # Created by https://www.gitignore.io/api/vim,osx,node,linux,windows
 ### Linux ###
 *~

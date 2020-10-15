@@ -66,7 +66,7 @@ function RecipeForm({ getRecipes, userId, updateCreations }) {
         const recipe = {
             Profile: userId,
             recipeName: name,
-            thumbnail,
+            thumbnail: `https://source.unsplash.com/random?${name}`,
             prepTime: parseInt(prepTime),
             ingredients,
             directions

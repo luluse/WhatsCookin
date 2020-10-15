@@ -51,13 +51,33 @@ export function login(userInfo) {
 
         // const response = await axios.get('https://swapi.dev/api/people/1/');
 
+        let id;
+
+        switch (userInfo.userName) {
+
+            case 'daisy':
+                id = 1;
+                break;
+
+            case 'beasley':
+                id = 2;
+                break;
+
+            default:
+                id = 3;
+                break;
+        }
+
+
         const returnedUser = {
-            id: userInfo.userName === 'root' ? 1 : 2,
+            id,
         };
 
-        const response = await axios.get(API.BASE + API.RECIPEALL + returnedUser.id);
+        const allRecipes = await axios.get(API.BASE + API.RECIPEALL + returnedUser.id);
+        const profile = await axios.get(API.BASE + API.PROFILE + id);
 
-        returnedUser.creations = response.data
+        returnedUser.creations = allRecipes.data
+        returnedUser.profile = profile.data
 
         dispatch({
             type: 'SET_USER',
