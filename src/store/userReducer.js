@@ -5,6 +5,7 @@ import API from '../constants/url.js';
 const initialState = {
     loggedIn: false,
     user: {},
+    cookbook: []
 };
 
 const userReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const userReducer = (state = initialState, action) => {
         case 'SET_USER':
             return {
                 loggedIn: true,
-                user: payload,
+                user: payload.returnedUser,
+                cookbook: payload.cookbook
             };
 
         case 'LOG_OUT':
@@ -31,6 +33,12 @@ const userReducer = (state = initialState, action) => {
                 user: payload
             }
 
+        case 'UPDATE_COOKBOOK':
+            return {
+                ...state,
+                cookbook: payload
+            }
+
         default: return state;
 
     }
@@ -43,6 +51,16 @@ export function logOut() {
         payload: {},
     };
 }
+
+export function updateCookbook(payload) {
+
+    return {
+        type: 'UPDATE_COOKBOOK',
+        payload,
+    }
+
+}
+
 
 
 export function login(userInfo) {
@@ -79,9 +97,19 @@ export function login(userInfo) {
         returnedUser.creations = allRecipes.data
         returnedUser.profile = profile.data
 
+        let cookbook;
+
+        if (profile.data.cookbook === null) {
+            cookbook = []
+        } else {
+            cookbook = JSON.parse(profile.data.cookbook)
+        }
+
+
+
         dispatch({
             type: 'SET_USER',
-            payload: returnedUser,
+            payload: { returnedUser, cookbook },
         });
 
     };
