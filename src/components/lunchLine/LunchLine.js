@@ -64,6 +64,8 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
+    const [cookbook, setCookbook] = useState(currentUser.profile.cookbook || [])
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -72,6 +74,34 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
     useEffect(() => {
         getRecipes()
     }, [getRecipes])
+
+    const likeHandler = (recipe) => {
+        console.log('heart clicked!', `recipeId: ${recipe.id}`, `UserId: ${currentUser.id}`)
+        console.log('profile', currentUser.profile);
+        console.log('recipe', recipe);
+
+        console.log('the cook book ===', cookbook);
+
+        if (cookbook === null) {
+            let newCookbook = []
+            newCookbook.push(recipe);
+
+        } else {
+
+            for (let i = 0; i < cookbook.length; i++) {
+                if (cookbook[i].id === recipe.id) {
+                    return;
+                };
+            }
+
+            cookbook.push(recipe);
+
+        }
+
+
+    }
+
+
 
     return (
         <>
@@ -117,7 +147,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser }) => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
-                                    <IconButton aria-label="add to favorites">
+                                    <IconButton onClick={() => { likeHandler(recipe) }} aria-label="add to favorites">
                                         <FavoriteIcon />
                                     </IconButton>
                                     <IconButton aria-label="share">
