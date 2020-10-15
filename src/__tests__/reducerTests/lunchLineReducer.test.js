@@ -1,7 +1,7 @@
 
 import lunchLine , {getRecipes} from '../../store/lunchLine';
-import API from '../../constants/url.js';
-import axios from 'axios';
+
+
 
 
 describe('action creators', ()=>{
@@ -12,35 +12,18 @@ describe('action creators', ()=>{
 });
 
 describe('reducer', ()=>{
-  it('Should get a recipe', ()=>{
-    const response = axios.get(API.BASE + API.RECIPE);
-    const action = {type: 'GET_POSTS', payload: response};
+
+
+  it('Should get a recipe', () => {
+    const recipe = {
+      directions: ['make pie'],
+      ingredients: ['apple', 'pie'],
+      prepTime: 40,
+      recipeName: 'apple pie',
+    };
+    const action = {type: 'GET_POSTS', payload: recipe};
     const newState = lunchLine(undefined, action);
-    console.log('NEWSTATETHING', newState.response);
-    expect(newState.response).toBe(1);
+    expect(newState.recipes).toBe(recipe);
   });
 
 });
-
-// export function getRecipes() {
-
-//   return async function (dispatch) {
-
-//     const response = await axios.get(API.BASE + API.RECIPE);
-//     const response2 = await axios.get(API.BASE + API.RECIPEALL + '1');
-
-// it gets response it dipatches get posts
-//     dispatch({
-//       type: 'GET_POSTS',
-//       payload: response.data.reverse(),
-//     });
-
-// gets response 2 it dispatches my creations
-//     dispatch({
-//       type: 'MY_CREATIONS',
-//       payload: response2.data,
-//     });
-
-//   };
-
-// }
