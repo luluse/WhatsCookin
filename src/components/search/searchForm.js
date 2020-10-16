@@ -81,12 +81,14 @@ const useStyles = makeStyles((theme) => ({
 // router.get('/searchByCuisine', searchByCuisine);router.get('/searchByIngredients', searchByIngredients);
 
 
-function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
+function SearchForm({ results, currentBook, updateCookbook, currentUser }) {
 
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(false);
     const [directions, setDirections] = useState('');
+    const [liked, setLiked] = useState(true);
+    const [cookbook, setCookbook] = useState(currentBook)
 
     const handleExpandClick = (id) => {
         setExpanded(!expanded);
@@ -139,7 +141,11 @@ function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
         } else {
             cookbook.push(recipeFromAPI);
         }
+        console.log('this is liked before set liked', liked)
+        setLiked(!liked);
         updateCookbook(cookbook);
+        console.log('this is liked after set liked ', liked)
+        
 
         let url = API.BASE + API.COOKBOOK + currentUser.profile.id
 
@@ -181,14 +187,14 @@ function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
             <div className={classes.root}>
                 <Card className={classes.root} style={{ backgroundColor: 'orange' }}>
                     <form>
-                        <h2>Search for a recipe</h2>
+                        <h2>Search for a Recipe</h2>
                         <TextField id="standard-basic"
                             type="text"
                             placeholder="search by ingredients"
                             onChange={handleSearchInputChange}
                         />
                         <br /><br />
-                        <Button variant="contained" onClick={handleSearchSubmit} type="submit">
+                                <Button variant="contained" onClick={handleSearchSubmit} type="submit">
                             Go!
                 </Button>
 
@@ -228,10 +234,11 @@ function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
                             {console.log('------------- this is the cookbook', cookbook)}
                             <CardActions disableSpacing>
 
-                               // <IconButton aria-label="add to favorites" onClick={() => { likeHandler(recipe) }}>
-
-                                <IconButton  aria-label="add to favorites"
-                                color={_.find(cookbook, recipe) ? "secondary": ''}
+                                <IconButton  
+                                onClick={() => { likeHandler(recipe) }}
+                                aria-label="add to favorites"
+                                color={_.find(cookbook, recipe) ? "secondary": 'primary'}
+                                
                                  >
 
                                     <FavoriteIcon />
@@ -249,8 +256,8 @@ function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
                                 >
                                     <ExpandMoreIcon />
                                 </IconButton>
-                            </CardActions>
-                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    </CardActions>
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <CardContent>
                                     <Typography variant="subtitle1">
                                         <h3>Time:</h3>{recipe.readyInMinutes} minutes
@@ -282,7 +289,7 @@ const mapStateToProps = (state) => {
 
         currentUser: state.userReducer.user,
 
-        cookbook: state.userReducer.cookbook,
+        currentBook: state.userReducer.cookbook,
     };
 };
 const mapDispatchToProps = { getSearchResults, updateCookbook};

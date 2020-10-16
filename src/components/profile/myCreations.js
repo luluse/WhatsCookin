@@ -85,7 +85,7 @@ console.log('CREAT', creations);
                                                 aria-label="recipe"
                                                 className={classes.avatar}
                                             >
-                                                R
+                                                D
                                             </Avatar>
                                         }
                                         title={Object.values(recipe.recipeName)}

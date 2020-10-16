@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
             }, 
     },
     media: {
+        
         height: 0,
         paddingTop: "56.25%", // 16:9
     },
@@ -89,7 +90,7 @@ console.log('this is current user', currentUser)
         //if recipe has been liked before we want to remove the liked recipe from array
         let likeBeforeStatus = false;
         let index;
-
+console.log('this is thenumber of likes', recipe.likes)
         for (let i = 0; i < cookbook.length; i++) {
             if (cookbook[i].id === recipe.id) {
                 likeBeforeStatus = true;
@@ -98,13 +99,16 @@ console.log('this is current user', currentUser)
         }
 
         if (likeBeforeStatus) {
+            Math.abs(recipe.likes--);
             cookbook.splice(index, 1);
         } else {
+            recipe.likes ? recipe.likes ++ : recipe.likes = 1;
             cookbook.push(recipe);
         }
 
         setLiked(!liked);
         updateCookbook(cookbook);
+        console.log('recipe AFTER LIKE', recipe.likes)
 
         let url = API.BASE + API.COOKBOOK + currentUser.profile.id
 
@@ -122,7 +126,7 @@ console.log('this is current user', currentUser)
                 <div className={classes.root}>
                     <Form />
 
-                    <h2>My lunch line</h2>
+                    <h2>The Lunch Line</h2>
                     
                     
                     <div>
@@ -139,17 +143,24 @@ console.log('this is current user', currentUser)
                                             D
                                         </Avatar>
                                     }
-                                    title={Object.values(recipe.recipeName)}
+                                   
+                                    title={recipe.recipeName}
+                                    titleTypographyProps={{ variant:'h3'}}
                                 />
 
 
-
+                                
                                 <CardMedia
                                     className={classes.media}
                                     // image={`https://source.unsplash.com/random?${recipe.recipeName}`}
                                     image={recipe.thumbnail}
+                    
                                     title={recipe.recipeName}
+                                    
+                            
+                                    
                                 />
+                               
                                 <Typography variant="subtitle1">
                                         <h3>Source:{" "}</h3>
                                         {(recipe.author)}
