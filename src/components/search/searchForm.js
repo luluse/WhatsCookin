@@ -163,7 +163,7 @@ function SearchForm({ results, currentBook, updateCookbook, currentUser }) {
         };
 
         let results = await axios.get(
-            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=1b88e455beea4cfdb41c5ac979d25fee&addRecipeInformation=true&instructionsRequired=true`
+            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=a69bbc1c16c84b229add060594d83908&addRecipeInformation=true&instructionsRequired=true`
         );
         // TODO: IS MAKE IT SO YOU CAN SEARCH BY CUISINE
         // Make the results saveable
@@ -173,11 +173,11 @@ function SearchForm({ results, currentBook, updateCookbook, currentUser }) {
         let recipeIds = [];
         await results.data.map(recipe => recipeIds.push(recipe.id))
         let ids = recipeIds.toString();
-        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=1b88e455beea4cfdb41c5ac979d25fee`)
+        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=a69bbc1c16c84b229add060594d83908`)
 
 
         setSearchResults(recipesWithDirections.data);
-        console.log("RRRResults", searchResults)
+        // console.log("RRRResults", searchResults)
         resetSearchField();
     };
 

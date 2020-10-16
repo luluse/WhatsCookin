@@ -118,7 +118,8 @@ function MyCookBook({ currentUser, cookbook }) {
                                             R
                                         </Avatar>
                                     }
-                                    title={Object.values(element.recipeName)}
+                                    title={element.recipeName}
+                                    titleTypographyProps={{ variant:'h6'}}
                                 />
 
 

@@ -88,7 +88,8 @@ console.log('CREAT', creations);
                                                 D
                                             </Avatar>
                                         }
-                                        title={Object.values(recipe.recipeName)}
+                                        title={recipe.recipeName}
+                                    titleTypographyProps={{ variant:'h6'}}
                                     />
     
     
