@@ -23,9 +23,9 @@ describe('reducer', () => {
       id: 1,
       name: 'Jane Doe',
     };
-    const action = {type:'SET_USER', payload: user};
+    const action = {type:'SET_USER', payload: {returnedUser: user}};
     const newState = userReducer(undefined, action);
     expect(newState.loggedIn).toBe(true);
-    expect(newState.user).toBe(user);
+    expect(newState.returnedUser).toBe(user);
   });
 });
