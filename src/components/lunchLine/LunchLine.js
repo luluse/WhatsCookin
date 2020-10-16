@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Form from "./recipeForm";
 import NavBar from "../layouts/navBar/navbar"
 import { getRecipes } from "../../store/lunchLine.js";
+import _ from 'lodash';
 
 import { updateCookbook } from "../../store/userReducer.js";
 
@@ -65,13 +66,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook }) => {
+const LunchLine = ({ getRecipes, recipes, currentUser, currentBook, updateCookbook }) => {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
-    // const [cookbook, setCookbook] = useState(JSON.parse(currentUser.profile.cookbook) || [])
+    const [cookbook, setCookbook] = useState(currentBook)
+    const [liked, setLiked] = useState(true)
 
+console.log('this is current user', currentUser)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -101,6 +103,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook 
             cookbook.push(recipe);
         }
 
+        setLiked(!liked);
         updateCookbook(cookbook);
 
         let url = API.BASE + API.COOKBOOK + currentUser.profile.id
@@ -114,12 +117,14 @@ const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook 
     return (
         <>
             <NavBar />
+            <h3>Welcome {currentUser.id ? currentUser.profile.firstName : ''}</h3>
             <Container maxWidth="sm" className="container">
                 <div className={classes.root}>
                     <Form />
 
                     <h2>My lunch line</h2>
-                    <h3>USER:{currentUser.id} is logged in </h3>
+                    
+                    
                     <div>
                         {recipes.map((recipe) => (
 
@@ -153,7 +158,9 @@ const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook 
                                  
                                 </CardContent>
                                 <CardActions disableSpacing>
-                                    <IconButton onClick={() => { likeHandler(recipe) }} aria-label="add to favorites">
+                                    <IconButton onClick={() => { likeHandler(recipe) }} aria-label="add to favorites"
+                                    
+                                    color={_.find(cookbook, recipe) ? "secondary": 'primary'}>
                                         <FavoriteIcon />
                                     </IconButton>
                                     <IconButton aria-label="share">
@@ -226,7 +233,7 @@ const mapStateToProps = (state) => {
     return {
         recipes: state.lunchLineReducer.recipes,
         currentUser: state.userReducer.user,
-        cookbook: state.userReducer.cookbook
+        currentBook: state.userReducer.cookbook
     };
 };
 

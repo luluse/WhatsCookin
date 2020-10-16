@@ -94,6 +94,7 @@ function MyCookBook({ currentUser, cookbook }) {
 
     return (
         <>
+
             
 
             <Container maxWidth="sm" className="container" borderColor="primary">
@@ -199,6 +200,7 @@ function MyCookBook({ currentUser, cookbook }) {
                
                </Container>
            
+
 
 
             <br />
