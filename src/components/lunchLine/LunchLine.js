@@ -136,7 +136,7 @@ console.log('this is current user', currentUser)
                                             aria-label="recipe"
                                             className={classes.avatar}
                                         >
-                                            R
+                                            D
                                         </Avatar>
                                     }
                                     title={Object.values(recipe.recipeName)}

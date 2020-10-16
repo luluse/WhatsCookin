@@ -3,12 +3,15 @@
 ## Table of Contents
 - [Whats Cookin](#whats-cookin)
     - [Overview](#overview)
+    - [Deployment](#deployment)
+    - [Web Application](#web-app)
+    - [Tools Used](#tools-used)
     - [Project Management Board](#project-management-board)
     - [Software Requirements](#software-requirements)
-    - [Installation](#installation)
-    - [Deployment](#deployment)
+    - [Getting Started](#installation)
     - [UML Data Model](#uml-data-model)
     - [WireFrames](#-WireFrames)
+    - [Usage](#-Usage)
     - [Approach to Testing](#approach-to-testing)
     - [Authors](#authors)
     - [Collaborations](#collaborations)
@@ -17,6 +20,25 @@
 
 ## Overview
 This is our final project for Advanced Full-Stack Software Development in JavaScript.
+
+## Deployment
+We are deployed on Firebase <br/>
+[What's Cookin'](https://whatscookin-4fd17.web.app/)
+
+## Web Application
+This web application consiss of a frontend written in React Redux, and Material UI. The backend was written in JavaScript, with a SQL database.
+
+Have you ever been both hungry any lonely, but you don't know what to make or have anyone to talk to? Well now you have What's Cookin! A social network interface is proveided where you can create a profile, post your own new recipes, view existing recipes, and even search for recipes by ingredients you already have in your fridge to share (the recipe not your food)! If you find a recipe you love, save it to your very own cookbook to go back and look at whenever you are hungry! 
+
+## Tools Used
+VS CODE
+* React
+* Redux
+* Axios
+* Prisma
+* SQLite
+* Node.js
+* Express
 
 ## Project Management Board
 This project utilizes Trello Project Boards. You can visit this board and see agile practices in action by clicking the link below.
@@ -27,9 +49,25 @@ This project utilizes Trello Project Boards. You can visit this board and see ag
 Please visit this link to view the [Software Requirements](./requirements.md)
 
 
-## Installation
+## Getting Started
+Clone this repository to your local machine. <br/>
+``` 
+git clone https://github.com/hot-bots/final-project.git 
+```
 
-## Deployment
+Once downloaded you can use VS Code to build the web application. Then install dependencies needed.
+``` 
+cd final-project
+npm i
+```
+The database is deployed [HERE](https://fathomless-reaches-67036.herokuapp.com/api)
+
+Once in the project file use:
+```
+npm start
+```
+
+And it should be good to go!
 
 ## UML Data Model
 ![UML](./src/assets/UML.png)
@@ -43,6 +81,8 @@ Please visit this link to view the [Software Requirements](./requirements.md)
 ### Browser view
 ![BrowserView1](./src/assets/browser1.png)
 ![BrowserView2](./src/assets/browser2.png)
+
+## Usage
 
 
 ## Approach to Testing

@@ -4,16 +4,22 @@ import MyCreations from './myCreations';
 import MyCookBook from './myCookBook'
 import NavBar from "../layouts/navBar/navbar"
 
+import Grid from '@material-ui/core/Grid';
+
 function Profile(){
-   return(
+   return (
     <>
       <NavBar/>
-       <h1>My profile</h1>
+       <h1>My Kitchen</h1>
        <br/>
+       <Grid container>
+         <Grid item xs={6}>
       <MyCreations />
-       <br/>
+      </Grid>
+      <Grid item xs={6}>
       <MyCookBook />
-     
+      </Grid>
+     </Grid>
     </>   
    )
 }

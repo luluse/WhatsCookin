@@ -29,7 +29,6 @@ function Login({ loggedIn, login }) {
     const history = useHistory();
 
     function submitHandler(event) {
-        console.log('Im in the submit handler')
         event.preventDefault();
         login({ userName, password });
     }
@@ -43,7 +42,6 @@ function Login({ loggedIn, login }) {
     }
 
     if (loggedIn) {
-        console.log('Im logged in')
         history.push('/home');
 
     }
@@ -68,14 +66,6 @@ function Login({ loggedIn, login }) {
         </Button>
             </div>
             </>
-
-        
-
-        // <form onSubmit={submitHandler}>
-        //     <input placeholder="enter name" onChange={nameChangeHandler} />
-        //     <input type="password" placeholder="enter password" onChange={passwordChangeHandler} />
-        //     <button>ok</button>
-        // </form> 
     )
 
 }
