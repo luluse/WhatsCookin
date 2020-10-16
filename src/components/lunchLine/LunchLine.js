@@ -73,7 +73,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser, currentBook, updateCookbo
     const [cookbook, setCookbook] = useState(currentBook)
     const [liked, setLiked] = useState(true)
 
-
+console.log('this is current user', currentUser)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -117,12 +117,13 @@ const LunchLine = ({ getRecipes, recipes, currentUser, currentBook, updateCookbo
     return (
         <>
             <NavBar />
+            <h3>Welcome {currentUser.id ? currentUser.profile.firstName : ''}</h3>
             <Container maxWidth="sm" className="container">
                 <div className={classes.root}>
                     <Form />
 
                     <h2>My lunch line</h2>
-                    <h3>USER:{currentUser.id} is logged in </h3>
+                    
                     
                     <div>
                         {recipes.map((recipe) => (
