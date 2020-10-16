@@ -8,7 +8,7 @@ function MyCreations({ creations }) {
 
     return (
         <React.Fragment>
-            <h2>My Creations</h2>
+            <h3>My Creations</h3>
             <br />
             {creations.map((recipe) => (
                 <p>{recipe.recipeName}</p>
