@@ -7,8 +7,8 @@ function MyCookBook({ currentUser, cookbook }) {
 
     return (
         <>
-            <h2>My CookBook</h2>
-            <p>Coming Soon!</p>
+            <h3>My CookBook</h3>
+            
 
             {cookbook.map(element => (
                 <p>

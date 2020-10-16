@@ -3,6 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { getSearchResults } from "../../store/search.js";
 import Typography from "@material-ui/core/Typography";
+import _ from 'lodash';
 
 import '../../App.css';
 
@@ -23,6 +24,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Container from "@material-ui/core/Container";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+
+
+import { updateCookbook } from '../../store/userReducer.js';
 
 // import Link from "@material-ui/core/Link";
 // import Grid from "@material-ui/core/Grid";
@@ -79,15 +83,14 @@ const useStyles = makeStyles((theme) => ({
 // router.get('/searchByCuisine', searchByCuisine);router.get('/searchByIngredients', searchByIngredients);
 
 const API = process.env.API_KEY;
-function SearchForm({ results }) {
+
+
+function SearchForm({ cookbook, results }) {
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(false);
     const [directions, setDirections] = useState('');
 
-
-
-    let bestDirections = ''
     const handleExpandClick = (id) => {
         setExpanded(!expanded);
 
@@ -118,7 +121,7 @@ function SearchForm({ results }) {
         };
 
         let results = await axios.get(
-            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=c71ca8318bad4e5d94a57f8a1115ea2c&addRecipeInformation=true&instructionsRequired=true`
+            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${query.ingredients}&apiKey=1b88e455beea4cfdb41c5ac979d25fee&addRecipeInformation=true&instructionsRequired=true`
         );
         // TODO: IS MAKE IT SO YOU CAN SEARCH BY CUISINE
         // Make the results saveable
@@ -128,12 +131,13 @@ function SearchForm({ results }) {
         let recipeIds = [];
         await results.data.map(recipe => recipeIds.push(recipe.id))
         let ids = recipeIds.toString();
-        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=c71ca8318bad4e5d94a57f8a1115ea2c`)
+        let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=1b88e455beea4cfdb41c5ac979d25fee`)
 
 
 
         setSearchResults(recipesWithDirections.data);
         console.log("RRRResults", searchResults)
+        resetSearchField();
     };
 
 
@@ -186,8 +190,11 @@ function SearchForm({ results }) {
 
 
                             </CardContent>
+                            {console.log('------------- this is the cookbook', cookbook)}
                             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
+                                <IconButton  aria-label="add to favorites"
+                                color={_.find(cookbook, recipe) ? "secondary": ''}
+                                 >
                                     <FavoriteIcon />
                                 </IconButton>
                                 <IconButton aria-label="share">
@@ -233,6 +240,7 @@ const mapStateToProps = (state) => {
     return {
         results: state.searchReducer.results,
         id: state.searchReducer.results.id,
+        cookbook: state.userReducer.cookbook,
     };
 };
 const mapDispatchToProps = { getSearchResults };
