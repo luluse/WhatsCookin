@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function RecipeForm({ getRecipes, userId, updateCreations }) {
+function RecipeForm({ getRecipes, userId, updateCreations, currentUser }) {
 
     const [name, setName] = useState('');
     const [thumbnail, setThumbnail] = useState('');
@@ -54,18 +54,27 @@ function RecipeForm({ getRecipes, userId, updateCreations }) {
     const [ingredients, setIngredients] = useState([]);
     const [directions, setDirections] = useState([]);
 
+   
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+
+    const resetSearchField = () => {
+        setName('');
+        setPrepTime('');
+        setIngredients('');
+        setDirections('');
+    };
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
     const handleSubmit = e => {
         e.preventDefault();
         const recipe = {
             Profile: userId,
             recipeName: name,
+            author:`${currentUser.profile.firstName} ${currentUser.profile.lastName}`,
             thumbnail: `https://source.unsplash.com/random?${name}`,
             prepTime: parseInt(prepTime),
             ingredients,
@@ -78,6 +87,8 @@ function RecipeForm({ getRecipes, userId, updateCreations }) {
             .catch(error => {
                 console.log(error)
             })
+
+            resetSearchField();
 
     };
     //  console.log('recipe', ([name, prepTime, ingredients, directions]));
@@ -149,7 +160,8 @@ const mapStateToProps = state => {
         state,
         displayRecipes: state.lunchLineReducer.displayRecipes,
         recipes: state.activeItem,
-        userId: state.userReducer.user.id
+        userId: state.userReducer.user.id,
+        currentUser: state.userReducer.user
     }
 }
 

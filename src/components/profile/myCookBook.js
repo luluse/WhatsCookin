@@ -61,6 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 function MyCookBook({ currentUser, cookbook }) {
 
+    const [liked, setLiked] = useState(true)
+
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
@@ -86,7 +88,7 @@ function MyCookBook({ currentUser, cookbook }) {
         }
 
         updateCookbook(cookbook);
-
+        setLiked(!liked);
         let url = API.BASE + API.COOKBOOK + currentUser.profile.id
 
         await axios.put(url, { data: cookbook })
