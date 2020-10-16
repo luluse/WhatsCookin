@@ -27,7 +27,6 @@ export default (state = intialState, action) => {
 
 
 export const getSearchResults = (results) => {
-  console.log('RRRResults', results);
   
 
   return {
