@@ -145,17 +145,22 @@ console.log('this is thenumber of likes', recipe.likes)
                                     }
                                    
                                     title={recipe.recipeName}
+                                    titleTypographyProps={{ variant:'h3'}}
                                 />
 
 
-
+                                
                                 <CardMedia
                                     className={classes.media}
                                     // image={`https://source.unsplash.com/random?${recipe.recipeName}`}
                                     image={recipe.thumbnail}
+                    
                                     title={recipe.recipeName}
                                     
+                            
+                                    
                                 />
+                               
                                 <Typography variant="subtitle1">
                                         <h3>Source:{" "}</h3>
                                         {(recipe.author)}
