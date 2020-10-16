@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { getSearchResults } from "../../store/search.js";
 import Typography from "@material-ui/core/Typography";
 
-import '../../App.css';
-
+import API from '../../constants/url.js';
+import { updateCookbook } from "../../store/userReducer.js";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -23,7 +23,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Container from "@material-ui/core/Container";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import '../../App.css';
 // import Link from "@material-ui/core/Link";
 // import Grid from "@material-ui/core/Grid";
 // import Paper from "@material-ui/core/Paper";
@@ -78,8 +78,7 @@ const useStyles = makeStyles((theme) => ({
 
 // router.get('/searchByCuisine', searchByCuisine);router.get('/searchByIngredients', searchByIngredients);
 
-const API = process.env.API_KEY;
-function SearchForm({ results }) {
+function SearchForm({ results, cookbook, updateCookbook, currentUser }) {
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(false);
@@ -110,6 +109,45 @@ function SearchForm({ results }) {
     };
 
 
+    const likeHandler = async (recipe) => {
+        console.log('this is the recipe', recipe)
+
+
+        let likeBeforeStatus = false;
+        let index;
+        let bestRecipe = recipe.analyzedInstructions[0].steps.map( item => item.step)
+        let recipeFromAPI = {
+            author: recipe.sourceName,
+            sourceUrl:recipe.sourceUrl,
+            recipeName: recipe.title,
+            thumbnail: recipe.image,
+            prepTime: recipe.readyInMinutes,
+            ingredients: recipe.extendedIngredients.original ? recipe.extendedIngredients.original : recipe.extendedIngredients.originalString,
+            directions: bestRecipe
+        };
+
+        for (let i = 0; i < cookbook.length; i++) {
+            if (cookbook[i].recipeName === recipe.title) {
+                likeBeforeStatus = true;
+                index = i;
+            };
+        }
+
+        if (likeBeforeStatus) {
+            cookbook.splice(index, 1);
+        } else {
+            cookbook.push(recipeFromAPI);
+        }
+        updateCookbook(cookbook);
+
+        let url = API.BASE + API.COOKBOOK + currentUser.profile.id
+
+        await axios.put(url, { data: cookbook })
+
+
+
+    }
+
     const handleSearchSubmit = async (e) => {
         e.preventDefault();
         const query = {
@@ -129,7 +167,6 @@ function SearchForm({ results }) {
         await results.data.map(recipe => recipeIds.push(recipe.id))
         let ids = recipeIds.toString();
         let recipesWithDirections = await axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&includeInstruction=true&apiKey=c71ca8318bad4e5d94a57f8a1115ea2c`)
-
 
 
         setSearchResults(recipesWithDirections.data);
@@ -187,12 +224,12 @@ function SearchForm({ results }) {
 
                             </CardContent>
                             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
+                                <IconButton aria-label="add to favorites" onClick={() => { likeHandler(recipe) }}>
                                     <FavoriteIcon />
                                 </IconButton>
                                 <IconButton aria-label="share">
                                     <ShareIcon />
-                                </IconButton>{console.log(recipe, 'this is the recipe for real')}
+                                </IconButton>
                                 <IconButton
                                     className={clsx(classes.expand, {
                                         [classes.expandOpen]: expanded,
@@ -216,9 +253,9 @@ function SearchForm({ results }) {
 
                                     <Typography variant='h6'><h3>Directions:</h3></Typography>
                                     {recipe.analyzedInstructions.length === 0 ?
-                                        <Typography>{recipe.instructions}</Typography> : recipe.analyzedInstructions[0].steps.map((step) => (console.log(step, 'this is a step in the recipe'),
+                                        <Typography>{recipe.instructions}</Typography> : recipe.analyzedInstructions[0].steps.map((step) => 
                                             <Typography key={Math.random()} paragraph>{JSON.stringify(step.number), ' ', step.step}</Typography>
-                                        ))}
+                                        )}
                                 </CardContent>
                             </Collapse>
                         </Card>
@@ -233,8 +270,10 @@ const mapStateToProps = (state) => {
     return {
         results: state.searchReducer.results,
         id: state.searchReducer.results.id,
+        currentUser: state.userReducer.user,
+        cookbook: state.userReducer.cookbook,
     };
 };
-const mapDispatchToProps = { getSearchResults };
+const mapDispatchToProps = { getSearchResults, updateCookbook};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

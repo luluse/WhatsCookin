@@ -131,7 +131,7 @@ const LunchLine = ({ getRecipes, recipes, currentUser, cookbook, updateCookbook 
                                             aria-label="recipe"
                                             className={classes.avatar}
                                         >
-                                            R
+                                            D
                                         </Avatar>
                                     }
                                     title={Object.values(recipe.recipeName)}
