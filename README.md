@@ -25,6 +25,10 @@ This is our final project for Advanced Full-Stack Software Development in JavaSc
 We are deployed on Firebase <br/>
 [What's Cookin'](https://whatscookin-4fd17.web.app/)
 
+To login:
+- username: **daisy**
+- password: **daisy**
+
 ## Web Application
 This web application consiss of a frontend written in React Redux, and Material UI. The backend was written in JavaScript, with a SQL database.
 
